@@ -17,6 +17,26 @@ symbol_value = {
     "D": 2
 }
 
+def get_slot_machine_spin(rows, cols, symbols):
+    all_symbols = []
+    for symbol, symbol_count in symbols.items(): #gives us key and value
+        for _ in range(symbol_count):
+            all_symbols.append(symbol)
+
+    columns = [] #nested list
+    for _ in range(cols):
+        column = []
+        current_symbols = all_symbols[:] #copy of all_symbols
+        for _ in range(rows):
+            value = random.choice(current_symbols)
+            current_symbols.remove(value) #copy was necessary because we need to preserve for next column iteration
+            column.append(value)
+
+        columns.append(column)
+
+    return columns
+
+
 # gloabal variables
 MAX_LINES = 3
 MAX_BET = 100
