@@ -1,3 +1,4 @@
+
 import random
 
 ROWS = 3
@@ -39,6 +40,12 @@ def check_winnings(columns, lines, bet, values):
     return winning_lines, winnings
         
 def get_slot_machine_spin(rows, cols, symbols):
+    
+    """_summary_
+
+    Returns:
+        _type_: _description_
+    """
     all_symbols = []
     for symbol, symbol_count in symbols.items(): #gives us key and value
         for _ in range(symbol_count):
@@ -57,8 +64,12 @@ def get_slot_machine_spin(rows, cols, symbols):
 
     return columns
 
+
 def print_slot_machine(columns):
-    
+    """
+    Function to print the slot machine
+
+    """
     #transposing the matrix
     for row in range(len(columns[0])):
         for i, column in enumerate(columns):
@@ -108,38 +119,3 @@ def get_bet():
         else:
             print("Please input a number.")
     return amount
-
-def game(balance):
-    lines = get_number_of_lines()
-    while True:
-        bet = get_bet()
-        total_bet = bet * lines
-        
-        if total_bet > balance:
-            print(f"You do not have enough to bet that amount, your current balance is: ${balance}")
-        else:
-            break
-    print(f"You are betting ${bet} on {lines} lines. Total bet is ${total_bet}")
-    
-    slots = get_slot_machine_spin(ROWS, COLS, symbol_count)
-    
-    print_slot_machine(slots)
-    
-    winning_lines, winnings = check_winnings(slots, lines, bet, symbol_value)
-    print(f"You won ${winnings}")
-    print(f"You won on lines:", *winning_lines) # * unpacks the list
-    
-    return winnings - total_bet #how much lost and gained
-
-def main():
-    balance = deposit()
-    
-    while True:
-        print(f"Current balance is ${balance}")
-        answer = input("Press enter to play (q to quit).")
-        if answer == "q":
-            break
-        balance += game(balance)
-    
-    print(f"You left with ${balance}")
-main()
