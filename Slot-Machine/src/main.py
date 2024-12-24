@@ -1,3 +1,22 @@
+import random
+
+ROWS = 3
+COLS = 3
+
+symbol_count = {
+    "A": 2,
+    "B": 4,
+    "C": 6,
+    "D": 8
+}
+
+symbol_value = {
+    "A": 5,
+    "B": 4,
+    "C": 3,
+    "D": 2
+}
+
 # gloabal variables
 MAX_LINES = 3
 MAX_BET = 100
@@ -45,7 +64,15 @@ def get_bet():
 def main():
     balance = deposit()
     lines = get_number_of_lines()
-    print(f"You are betting ${balance} on {lines} lines. Ready to play?")
+    while True:
+        bet = get_bet()
+        total_bet = bet * lines
+        
+        if total_bet > balance:
+            print(f"You do not have enough to bet that amount, your current balance is: ${balance}")
+        else:
+            break
+    print(f"You are betting ${bet} on {lines} lines. Ready to play?")
     
     
     
