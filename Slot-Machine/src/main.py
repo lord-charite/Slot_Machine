@@ -36,7 +36,7 @@ def check_winnings(columns, lines, bet, values):
             winnings += values[symbol] * bet
             winning_lines.append(line + 1)
             
-    return winnings
+    return winning_lines, winnings
         
 def get_slot_machine_spin(rows, cols, symbols):
     all_symbols = []
@@ -108,8 +108,8 @@ def get_bet():
         else:
             print("Please input a number.")
     return amount
-def main():
-    balance = deposit()
+
+def game(balance):
     lines = get_number_of_lines()
     while True:
         bet = get_bet()
@@ -125,5 +125,21 @@ def main():
     
     print_slot_machine(slots)
     
+    winning_lines, winnings = check_winnings(slots, lines, bet, symbol_value)
+    print(f"You won ${winnings}")
+    print(f"You won on lines:", *winning_lines) # * unpacks the list
     
+    return winnings - total_bet #how much lost and gained
+
+def main():
+    balance = deposit()
+    
+    while True:
+        print(f"Current balance is ${balance}")
+        answer = input("Press enter to play (q to quit).")
+        if answer == "q":
+            break
+        balance += game(balance)
+    
+    print(f"You left with ${balance}")
 main()
