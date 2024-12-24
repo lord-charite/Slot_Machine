@@ -36,6 +36,17 @@ def get_slot_machine_spin(rows, cols, symbols):
 
     return columns
 
+def print_slot_machine(columns):
+    
+    #transposing the matrix
+    for row in range(len(columns[0])):
+        for i, column in enumerate(columns):
+            if i != len(columns) - 1: #check not last column, style choice for "|""
+                print(column[row], end=" | ") # end tells the print function not to go to the next line
+            else:
+                print(column[row], end="")
+
+        print()
 
 # gloabal variables
 MAX_LINES = 3
@@ -94,6 +105,9 @@ def main():
             break
     print(f"You are betting ${bet} on {lines} lines. Ready to play?")
     
+    slots = get_slot_machine_spin(ROWS, COLS, symbol_count)
+    
+    print_slot_machine(slots)
     
     
 main()
